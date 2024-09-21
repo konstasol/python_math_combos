@@ -1,0 +1,119 @@
+import numpy as np
+import matplotlib.pyplot as plt
+print("ΕΠΙΛΥΣΗ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ ΕΞΙΣΩΣΗΣ\n-------------------------------\na * x^2  +  b * x  +  c = 0")
+
+
+# Αμυντικός για εισαγωγή α,β,γ
+while True:
+    try:
+        a = float(input("Δώσε την τιμή του a: "))
+        if a == 0:
+            print("Αν το a είναι 0, η εξίσωση δεν είναι δευτεροβάθμια...")
+        else:
+            break
+    except ValueError:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε!")  # Μήνυμα λάθους
+
+while True:
+    try:
+        b = float(input("Δώσε την τιμή του b: "))
+        break  # Εάν η είσοδος είναι σωστή, βγαίνουμε από το loop
+    except ValueError:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε!")  # Μήνυμα λάθους
+
+while True:
+    try:
+        c = float(input("Δώσε την τιμή του c: "))
+        break  # Εάν η είσοδος είναι σωστή, βγαίνουμε από το loop
+    except ValueError:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε!")  # Μήνυμα λάθους
+
+# Συνάρτηση
+def f(x):
+    return a*x**2 + b*x + c
+
+
+rangesin=(abs(a)+abs(b) +abs(c))//3
+print(rangesin)
+# Δημιουργία του διαγράμματος
+x = np.linspace(-(rangesin*2), (rangesin*5), 500)  # Πίνακας τιμών γραφικης παραστασης
+plt.ylim(-(rangesin*2), (rangesin*5))  # εύρος του άξονα y
+y = f(x)  # υπολογίζουμε το fx για κάθε x toy πίνακα τιμων
+# Μορφοποίηση για να μην τυπωνονται μηδενικα και τελείες που δεν χρειάζονται
+def new_num(value, variable, teleytaio=False):
+
+    if value == 0 and not teleytaio:
+        return ''  # Εάν η τιμή είναι 0 και δεν είναι ο τελευταίος όρος, επιστρέφει κενό
+    formatted = f"{value:.2f}".rstrip('0').rstrip('.')
+    if formatted == '-0':  # Ειδική περίπτωση για το -0
+        formatted = '0'
+    return f'{formatted}{variable}'
+
+# Δημιουργία της ετικέτας με βάση τα πρόσημα του b και c
+a_formatted = new_num(a, 'x^2')
+b_formatted = new_num(b, 'x')
+c_formatted = new_num(c, '')
+
+if b < 0:
+    if c == 0:
+        label = f'y = {a_formatted} {b_formatted}'
+    elif c > 0:
+        label = f'y = {a_formatted}  {b_formatted} + {c_formatted}'
+    else:
+        label = f'y = {a_formatted}  {b_formatted}  {c_formatted}'
+elif b > 0:
+    if c == 0:
+        label = f'y = {a_formatted} + {b_formatted}'
+    elif c > 0:
+        label = f'y = {a_formatted} + {b_formatted} + {c_formatted}'
+    else:
+        label = f'y = {a_formatted} + {b_formatted} {c_formatted}'
+else:
+    # b == 0
+    if c == 0:
+        label = f'y = {a_formatted}'
+    elif c > 0:
+        label = f'y = {a_formatted} + {c_formatted}'
+    else:
+        label = f'y = {a_formatted}  {c_formatted}'
+
+print(label)
+
+
+plt.plot(x, y, label=label, color='blue', linewidth=2)  # Δημιουργία του διαγράμματος με μπλε χρώμα και πάχος γραμμής 2
+plt.xlabel('x')  # ετικέτα στον άξονα x
+plt.ylabel('y')  # ετικέτα στον άξονα y
+plt.title('Διάγραμμα της δευτεροβάθμιας συνάρτησης')  # τίτλος διαγράμματος
+plt.axhline(0, color='black', linewidth=0.5)  # οριζόντια γραμμή του άξονα y
+plt.axvline(0, color='black', linewidth=0.5)  # κατακόρυφη γραμμής του άξονα x
+plt.grid(color='gray', linestyle='--', linewidth=0.5)  # πλέγμα στο διάγραμμα με γκρι,διακεκομμένες γραμμές
+
+# Υπολογισμός των ριζών της εξίσωσης
+diakrinousa = b**2 - 4*a*c
+if diakrinousa > 0:
+    riza1 = (-b + np.sqrt(diakrinousa)) / (2*a)
+    riza2 = (-b - np.sqrt(diakrinousa)) / (2*a)
+    # Μορφοποίηση ριζών
+    riza1_formatted = f"{riza1:.2f}".rstrip('0').rstrip('.')
+    riza2_formatted = f"{riza2:.2f}".rstrip('0').rstrip('.')
+    print(f"Η εξίσωση έχει δύο πραγματικές ρίζες: x1 = {riza1_formatted}, x2 = {riza2_formatted}")
+    plt.scatter([riza1, riza2], [0, 0], color='red')  # Επισήμανση των ριζών στο διάγραμμα
+    plt.text(riza1, 0.5, f'x1: ({riza1_formatted}, 0)', fontsize=12, verticalalignment='top',
+             horizontalalignment='right', bbox=dict(facecolor='pink', edgecolor='none', boxstyle='round,pad=0.2'))
+    plt.text(riza2, 0.5, f'x2: ({riza2_formatted}, 0)', fontsize=12, verticalalignment='bottom',
+             horizontalalignment='left', bbox=dict(facecolor='gray', edgecolor='none', boxstyle='round,pad=0.3'))
+
+elif diakrinousa == 0:
+    riza = -b / (2*a)
+    riza_formatted = f"{riza:.2f}".rstrip('0').rstrip('.')
+    print(f"Η εξίσωση έχει μία διπλή πραγματική ρίζα: x = {riza_formatted}")
+    plt.scatter([riza], [0], color='red')  # Επισήμανση της ρίζας στο διάγραμμα
+    plt.text(riza, 0, f'({riza_formatted}, 0)', fontsize=12, verticalalignment='bottom', horizontalalignment='left',
+             bbox=dict(facecolor='white', edgecolor='none', boxstyle='round,pad=0.5'))  # Padding με bbox
+else:
+    print("Η εξίσωση δεν έχει πραγματικές ρίζες.")
+
+
+plt.legend()  #Επεξηγήσεις -υπόμνημα
+plt.show()  # Εμφάνιση του διαγράμματος
+
