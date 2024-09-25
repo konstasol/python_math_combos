@@ -1,0 +1,106 @@
+import numpy as np
+from numpy import dtype
+
+# Tίτλος εφαρμογής
+print("\n" + "="*12 + " ΓΙΝΟΜΕΝΟ ΠΙΝΑΚΩΝ " + "="*12 + "\n")
+
+#Διαστάσεις Πίνακα Α
+print("ΠΙΝΑΚΑΣ Α")
+while True:
+    try:
+        A_rows=int(input("Γραμμές: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+while True:
+    try:
+        A_cols=int(input("Στήλες: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+
+print("-"*14) #Διαχωριστικό
+
+
+#Διαστάσεις Πίνακα B
+print("ΠΙΝΑΚΑΣ B")
+while True:
+    try:
+        B_rows=int(input("Γραμμές: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+while True:
+    try:
+        B_cols=int(input("Στήλες: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+
+print("-"*14)
+
+if (A_cols!=B_rows):
+    print("Δεν γίνεται ο πολλαπλασιαμός!")
+    exit()
+else:
+    # Δημιουργία κενών πινάκων για εισαγωγή από πληκτρολόγιο
+    A = np.zeros((A_rows,A_cols),dtype=int)
+    B= np.zeros((B_rows,B_cols),dtype=int)
+
+    C = np.zeros((A_rows,B_cols),dtype=int) #Πίνακας Γινομένου, Γραμμές Πίνακα Α Χ Στήλες Πίνακα Β
+
+    # Εισαγωγή Πίνακας Α
+    print(f"Δώστε τα στοιχεία του Πίνακα Α [{A_rows}x{A_cols}]:")
+    for i in range(A_rows):
+        for j in range(B_cols):
+            while True:
+                try:
+                    A[i][j]=int(input(f"Στοιχείο [{i+1}.{j+1}]: "))
+                    break
+                except:
+                    print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο!")  # Μήνυμα λάθους
+
+        print("")
+
+    # Εισαγωγή Πίνακας Α
+    print(f"Δώστε τα στοιχεία του Πίνακα B [{B_rows}x{B_cols}]:")
+    for i in range(B_rows):
+        for j in range(B_cols):
+            while True:
+                try:
+                    B[i][j] = int(input(f"Στοιχείο [{i + 1}.{j + 1}]: "))
+                    break
+                except:
+                    print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο!")  # Μήνυμα λάθους
+        print("")
+
+    for i in range(A_rows):
+        for j in range(B_cols):
+            sum=0;
+            for k in range(A_cols):
+                sum+=A[i][k]*B[k][j]
+            C[i][j]=sum
+    print("-" * 14)  # Διαχωριστικό
+    print(f"Πίνακας Α [{A_rows}x{A_cols}]:")
+    for i in range(A_rows):
+        for j in range(A_cols):
+            print(f"{A[i][j]:5}", end=" ")  # Μορφοποίηση
+        print("")
+
+    print(f"Πίνακας Β [{B_rows}x{B_cols}]:")
+    for i in range(B_rows):
+        for j in range(B_cols):
+            print(f"{B[i][j]:5}", end=" ")  # Μορφοποίηση
+        print("")
+
+    print("-" * 14)  # Διαχωριστικό
+    # Εκτύπωση πίνακα C (γινόμενο Α Χ Β)
+    print(f"A x B ==> Πίνακας C  [{A_rows}x{B_cols}]:")
+    for i in range(A_rows):
+        for j in range(B_cols):
+            print(f"{C[i][j]:5}", end=" ")  # Μορφοποίηση
+        print("")
+
+
+
+
