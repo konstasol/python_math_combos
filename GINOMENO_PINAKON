@@ -52,7 +52,7 @@ else:
     # Εισαγωγή Πίνακας Α
     print(f"Δώστε τα στοιχεία του Πίνακα Α [{A_rows}x{A_cols}]:")
     for i in range(A_rows):
-        for j in range(B_cols):
+        for j in range(A_cols):
             while True:
                 try:
                     A[i][j]=int(input(f"Στοιχείο [{i+1}.{j+1}]: "))
@@ -62,7 +62,7 @@ else:
 
         print("")
 
-    # Εισαγωγή Πίνακας Α
+    # Εισαγωγή Πίνακας B
     print(f"Δώστε τα στοιχεία του Πίνακα B [{B_rows}x{B_cols}]:")
     for i in range(B_rows):
         for j in range(B_cols):
