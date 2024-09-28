@@ -1,0 +1,63 @@
+import numpy as np
+
+
+# Tίτλος εφαρμογής
+print("\n" + "="*12 + " Έλεγχος Ανηγμένος Πίνακας" + "="*12 + "\n")
+
+#Διαστάσεις Πίνακα εισαγωγή
+print("ΠΙΝΑΚΑΣ ")
+while True:
+    try:
+        A_rows=int(input("Γραμμές: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+while True:
+    try:
+        A_cols=int(input("Στήλες: "))
+        break
+    except:
+        print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο >0!")  # Μήνυμα λάθους
+
+print("-"*14) #Διαχωριστικό
+A=np.zeros((A_rows,A_cols),dtype=int)
+
+# Εισαγωγή Πίνακας Α
+print(f"Δώστε τα στοιχεία του Πίνακα Α [{A_rows}x{A_cols}]:")
+for i in range(A_rows):
+    for j in range(A_cols):
+        while True:
+            try:
+                A[i][j]=int(input(f"Στοιχείο [{i+1}.{j+1}]: "))
+                break
+            except:
+                print("Λάθος τύπος δεδομένων! Ξαναπροσπαθήστε εισάγοντας ακέραιο!")  # Μήνυμα λάθους
+
+    print("")
+
+print(f"Πίνακας Α [{A_rows}x{A_cols}]:")
+for i in range(A_rows):
+
+    for j in range(A_cols):
+        print(f"{A[i][j]:5}", end=" ")
+    print("")
+is_klimakotos=1 #Boolean, ο πίνακας ειναι κλιμακωτός
+stoixeio_odhgos=-1  # Στοιχείο οδηγός, σε κάθε γραμμή θα ενημερώνεται
+
+
+for i in range(A_rows):
+    for j in range(A_cols):
+        if A[i][j] != 0:  # Βρίσκουμε το πρώτο μη μηδενικό στοιχείο κάθε γραμμής
+            if j <= stoixeio_odhgos:  # αν είναι δεξιότερα από το προηγούμενο τότε δεν ειναι κλιμακωτός
+                is_klimakotos = 0
+                break  # Σταματάμε εσωτερική διαπέραση γραμμης αν δεν είναι κλιμακωτός
+            stoixeio_odhgos = j  # Ενημερώνουμε τη θέση του στοιχείου οδηγού, αρκεί το j
+            break  # Σταματάμε την εσωτερική διαπέραση όταν βρούμε το στοιχείο οδηγό
+    if is_klimakotos == 0:
+        break  # Σταματάμε τον έλεγχο αν βρούμε ότι δεν είναι κλιμακωτός
+
+# Αποτέλεσμα εκτύπωση
+if is_klimakotos == 0:
+    print("Ο πίνακας δεν είναι κλιμακωτός")
+else:
+    print("Ο πίνακας είναι κλιμακωτός")
