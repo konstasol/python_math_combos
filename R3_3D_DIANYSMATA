@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Δημιουργία 3D αναπαραστασης
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Ορισμός αρχής και τελους των διανυσμάτων
+origin = [0, 0, 0]  #  αρχή στο (0,0,0)
+
+#Εδώ εισάγουμε τα διανύσματα που θέλουμε να δούμε γραφικά
+vector1 = [0, 0, 7]  # 1ο
+vector2 = [0, 7, 0]  # 2ο
+vector3 = [7, 0, 0]  #3ο κοκ
+
+# Σχεδιασμός του διανύσματος 1
+ax.quiver(origin[0], origin[1], origin[2],
+          vector1[0], vector1[1], vector1[2],
+          color='r', label='Διάνυσμα 1')
+
+
+# Σχεδιασμός του διανύσματος 2
+ax.quiver(origin[0], origin[1], origin[2],
+          vector2[0], vector2[1], vector2[2],
+          color='b', label='Διάνυσμα  2')
+
+# Σχεδιασμός του διανύσματος 3
+ax.quiver(origin[0], origin[1], origin[2],
+          vector3[0], vector3[1], vector3[2],
+          color='g', label='Διάνυσμα  3')
+
+# Προσθήκη ετικετών και εμφάνιση του γραφήματος
+ax.set_xlim([0, 10])
+ax.set_ylim([0, 10])
+ax.set_zlim([0, 10])
+ax.set_xlabel('Άξονας X')
+ax.set_ylabel('Άξονας Y')
+ax.set_zlabel('Άξονας Z')
+plt.legend()
+plt.show()
