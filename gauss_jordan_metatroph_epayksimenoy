@@ -53,28 +53,28 @@ def ektiposi_pinaka(pin):
 
 
 def metatroph_gauss(A):
-    rows, cols = A.shape  # για να πάρουμε τις διαστάσεις του πίνακα που περνάμε στη συνάρτηση
-    for i in range(rows):
+    rows, cols = A.shape
+    for i in range(min(rows, cols)):  # Μόνο μέχρι τη μικρότερη διάσταση
         # Βρίσκουμε τον κύριο στοιχείο (οδηγό στοιχείο)
         if A[i][i] == 0:  # αν έχουμε 0
-            found_mh_mhdeniko = False  # θέτουμε τη boolean σε false
-            for j in range(i + 1, rows):  # ψάχνουμε το πρώτο μη μηδενικο
+            found_mh_mhdeniko = False
+            for j in range(i + 1, rows):  # ψάχνουμε το πρώτο μη μηδενικό
                 if A[j][i] != 0:
-                    A[[i, j]] = A[[j, i]]  # ανταλλάσουμε γραμμές με numpy
+                    A[[i, j]] = A[[j, i]]  # ανταλλάσουμε γραμμές
                     found_mh_mhdeniko = True
                     break
 
-            # Αν δεν βρούμε κανένα μη μηδενικό στοιχείο, το σύστημα είναι αδύνατο
+            # Αν δεν βρούμε κανένα μη μηδενικό στοιχείο
             if not found_mh_mhdeniko:
-                print("Το σύστημα είναι αδύνατο!")
-                return None  
+                print("Το σύστημα είναι αδύνατο ή δεν μπορεί να απλοποιηθεί περαιτέρω.")
+                continue
 
-        A[i] = A[i] / A[i][i]  # κάνουμε την γραμμή με την κατάλληλη διαίρεση να έχει οδηγό στοιχείο 1
+        A[i] = A[i] / A[i][i]  # κάνουμε την γραμμή να έχει οδηγό στοιχείο 1
 
         # Κάνουμε τα στοιχεία πάνω και κάτω από το κύριο στοιχείο 0.
         for j in range(rows):
             if j != i:  # για να παρακάμψουμε την τρέχουσα γραμμή
-                A[j] = A[j] - A[j][i] * A[i]  # γραμμοπράξη για μηδενισμό
+                A[j] = A[j] - A[j][i] * A[i]
 
     return A
 
